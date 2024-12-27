@@ -5,7 +5,7 @@ namespace RestAPIClient.Parameters;
 
 public static class ParameterFactory
 {
-    public static string CreateJsonParameter(Parameter parameter)
+    public static string CreateJsonStringParameter(Parameter parameter)
     {
         var Parameters = parameter.Parameters;
         return Parameters.Count < 0 ? string.Empty : JsonConvert.SerializeObject(Parameters);

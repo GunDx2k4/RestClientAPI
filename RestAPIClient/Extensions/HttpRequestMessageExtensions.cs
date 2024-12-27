@@ -8,7 +8,7 @@ public static class HttpRequestMessageExtensions
     public static HttpRequestMessage BuildRequestBodyJson(this HttpRequestMessage request,Parameter? parameters)
     {
         if (parameters == null) return request;
-        var content = new StringContent(ParameterFactory.CreateJsonParameter(parameters), Encoding.UTF8, "application/json");
+        var content = new StringContent(ParameterFactory.CreateJsonStringParameter(parameters), Encoding.UTF8, "application/json");
         request.Content = content;
         return request;
     }

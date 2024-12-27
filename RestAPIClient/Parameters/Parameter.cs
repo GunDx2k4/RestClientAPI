@@ -19,6 +19,13 @@ public class Parameter
         return this;
     }
 
+    public Parameter AddParameterList(string key, params object[] values)
+    {
+        var parameters = values.ToList();
+        Parameters[key] = parameters;
+        return this;
+    }
+
     public override string ToString()
     {
         var result = new StringBuilder();
