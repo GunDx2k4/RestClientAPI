@@ -14,13 +14,18 @@ public static class ParameterFactory
     public static string CreateQueryStringParameter(Parameter parameter)
     {
         var Parameters = parameter.Parameters;
-        var isIEnumerable = Parameters.Values.Any(param => param is IEnumerable<object>);
-        if (isIEnumerable) throw new Exception("Has IEnumerable");
+        Parameters.Values.ToList().ForEach(p =>
+        {
+            if (p is IEnumerable<object>)
+                throw new ArgumentException(
+                    $"Expected IEnumerable<object>, but got {p?.GetType().Name ?? "null"}.",
+                    nameof(p));
+        });
         var queryString = HttpUtility.ParseQueryString(string.Empty);
         foreach (var data in Parameters)
         {
-            queryString[data.Key] = data.Value.ToString();
+            queryString[data.Key] = data.Value?.ToString();
         }
-        return queryString.ToString() ?? string.Empty;;
+        return queryString.ToString() ?? string.Empty;
     }
 }
